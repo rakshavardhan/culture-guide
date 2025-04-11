@@ -501,7 +501,7 @@ export default function BookingForm() {
                                   <FormLabel className="font-medium cursor-pointer">
                                     {addon.label}
                                   </FormLabel>
-                                  <span className="font-medium text-olive dark:text-gold">${addon.price}</span>
+                                  <span className="font-medium text-olive dark:text-gold">₹{addon.price * 80}</span>
                                 </div>
                                 <p className="text-sm text-muted-foreground">
                                   {addon.description}
@@ -670,7 +670,7 @@ export default function BookingForm() {
                   <div className="border-t border-gray-200 dark:border-gray-700 pt-3 mt-3">
                     <div className="flex justify-between font-medium">
                       <span>Estimated Total:</span>
-                      <span>${calculateTotal(form.getValues())}</span>
+                      <span>₹{calculateTotal(form.getValues()) * 80}</span>
                     </div>
                   </div>
                 </div>
