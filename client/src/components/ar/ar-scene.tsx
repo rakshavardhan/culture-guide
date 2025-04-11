@@ -445,6 +445,9 @@ export default function ARScene({ siteId }: ARSceneProps) {
 
   return (
     <div className="relative w-full h-full ar-scene-container">
+      {/* Fallback background - always visible */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-700 to-blue-950 z-0"></div>
+      
       {/* Camera video feed */}
       <video
         ref={videoRef}
@@ -458,7 +461,7 @@ export default function ARScene({ siteId }: ARSceneProps) {
       {/* Canvas overlay for AR content */}
       <canvas
         ref={canvasRef}
-        className="absolute top-0 left-0 w-full h-full pointer-events-none"
+        className="absolute top-0 left-0 w-full h-full pointer-events-none z-10"
         width={window.innerWidth}
         height={window.innerHeight}
       />

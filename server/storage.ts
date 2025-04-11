@@ -12,6 +12,8 @@ import {
   type ContactMessage, 
   type InsertContactMessage
 } from "@shared/schema";
+import { db } from './db';
+import { eq } from 'drizzle-orm';
 
 // Interface for all storage operations
 export interface IStorage {
@@ -34,7 +36,82 @@ export interface IStorage {
   createContactMessage(message: InsertContactMessage): Promise<ContactMessage>;
 }
 
-// In-memory storage implementation
+// Database storage implementation
+export class DatabaseStorage implements IStorage {
+  // User methods
+  async getUser(id: number): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user;
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const [user] = await db.insert(users).values(insertUser).returning();
+    return user;
+  }
+
+  // Trip methods
+  async getTrip(id: number): Promise<Trip | undefined> {
+    const [trip] = await db.select().from(trips).where(eq(trips.id, id));
+    return trip;
+  }
+
+  async getTripsByUserId(userId: number): Promise<Trip[]> {
+    return await db.select().from(trips).where(eq(trips.userId, userId));
+  }
+
+  async createTrip(insertTrip: InsertTrip): Promise<Trip> {
+    const [trip] = await db.insert(trips).values(insertTrip).returning();
+    return trip;
+  }
+
+  // Booking methods
+  async getBooking(id: number): Promise<Booking | undefined> {
+    const [booking] = await db.select().from(bookings).where(eq(bookings.id, id));
+    return booking;
+  }
+
+  async getBookingsByUserId(userId: number): Promise<Booking[]> {
+    return await db.select().from(bookings).where(eq(bookings.userId, userId));
+  }
+
+  async createBooking(insertBooking: InsertBooking): Promise<Booking> {
+    const [booking] = await db.insert(bookings).values(insertBooking).returning();
+    return booking;
+  }
+
+  // Contact message methods
+  async createContactMessage(insertMessage: InsertContactMessage): Promise<ContactMessage> {
+    const [message] = await db.insert(contactMessages).values(insertMessage).returning();
+    return message;
+  }
+
+  // Create a default user for testing if it doesn't exist
+  async initializeDefaultUser() {
+    try {
+      const existingUser = await this.getUserByUsername("demo");
+      if (!existingUser) {
+        await this.createUser({
+          username: "demo",
+          password: "password", 
+          email: "demo@example.com",
+          fullName: "Demo User",
+          preferredLanguage: "en",
+          profileImage: "https://randomuser.me/api/portraits/men/32.jpg"
+        });
+        console.log("Created default user");
+      }
+    } catch (error) {
+      console.error("Error creating default user:", error);
+    }
+  }
+}
+
+// In-memory storage implementation (kept for backward compatibility)
 export class MemStorage implements IStorage {
   private users: Map<number, User>;
   private trips: Map<number, Trip>;
@@ -133,5 +210,11 @@ export class MemStorage implements IStorage {
   }
 }
 
+// Create the database storage
+const dbStorage = new DatabaseStorage();
+
+// Initialize the database with default data
+dbStorage.initializeDefaultUser().catch(console.error);
+
 // Export a singleton instance for use throughout the application
-export const storage = new MemStorage();
+export const storage = dbStorage;
