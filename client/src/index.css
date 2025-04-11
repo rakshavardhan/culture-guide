@@ -1,0 +1,211 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 36 33% 97%;
+    --foreground: 222.2 84% 4.9%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    
+    --primary: 86 30% 32%;
+    --primary-foreground: 210 40% 98%;
+    
+    --secondary: 199 89% 75%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    
+    --accent: 16 66% 49%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 86 30% 32%;
+    
+    --radius: 0.5rem;
+    
+    --chart-1: 86 30% 32%; /* olive */
+    --chart-2: 199 89% 75%; /* skyblue */
+    --chart-3: 16 66% 49%; /* terracotta */
+    --chart-4: 38 95% 67%; /* gold */
+    --chart-5: 220 84% 6%; /* navy */
+  }
+  
+  .dark {
+    --background: 220 84% 6%;
+    --foreground: 36 33% 97%;
+    
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    
+    --primary: 38 95% 67%;
+    --primary-foreground: 220 84% 6%;
+    
+    --secondary: 199 89% 75%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    
+    --accent: 16 66% 49%;
+    --accent-foreground: 210 40% 98%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 38 95% 67%;
+    
+    --chart-1: 38 95% 67%; /* gold */
+    --chart-2: 199 89% 75%; /* skyblue */
+    --chart-3: 16 66% 49%; /* terracotta */
+    --chart-4: 86 30% 32%; /* olive */
+    --chart-5: 36 33% 97%; /* ivory */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+/* Custom Colors for Cultura Guide */
+@layer utilities {
+  .bg-ivory {
+    @apply bg-[#FFFEF2] dark:bg-navy;
+  }
+  
+  .bg-olive {
+    @apply bg-[#606C38] dark:bg-gold;
+  }
+  
+  .bg-olive-light {
+    @apply bg-[#7C8850] dark:bg-gold-light;
+  }
+  
+  .bg-skyblue {
+    @apply bg-[#90E0EF] dark:bg-[#90E0EF];
+  }
+  
+  .bg-skyblue-light {
+    @apply bg-[#ADE8F4] dark:bg-[#ADE8F4];
+  }
+  
+  .bg-terracotta {
+    @apply bg-[#C65D36] dark:bg-gold;
+  }
+  
+  .bg-terracotta-light {
+    @apply bg-[#D47A58] dark:bg-gold-light;
+  }
+  
+  .bg-navy {
+    @apply bg-[#0A1128] dark:bg-[#0A1128];
+  }
+  
+  .bg-navy-light {
+    @apply bg-[#1C2541] dark:bg-[#1C2541];
+  }
+  
+  .bg-gold {
+    @apply bg-[#FFC857] dark:bg-[#FFC857];
+  }
+  
+  .bg-gold-light {
+    @apply bg-[#FFDA85] dark:bg-[#FFDA85];
+  }
+  
+  .text-ivory {
+    @apply text-[#FFFEF2] dark:text-[#FFFEF2];
+  }
+  
+  .text-olive {
+    @apply text-[#606C38] dark:text-gold;
+  }
+  
+  .text-skyblue {
+    @apply text-[#90E0EF] dark:text-[#90E0EF];
+  }
+  
+  .text-terracotta {
+    @apply text-[#C65D36] dark:text-gold;
+  }
+  
+  .text-navy {
+    @apply text-[#0A1128] dark:text-[#0A1128];
+  }
+  
+  .text-gold {
+    @apply text-[#FFC857] dark:text-[#FFC857];
+  }
+  
+  .border-olive {
+    @apply border-[#606C38] dark:border-gold;
+  }
+  
+  .border-skyblue {
+    @apply border-[#90E0EF] dark:border-[#90E0EF];
+  }
+  
+  .border-terracotta {
+    @apply border-[#C65D36] dark:border-gold;
+  }
+  
+  .border-navy {
+    @apply border-[#0A1128] dark:border-[#0A1128];
+  }
+  
+  .border-gold {
+    @apply border-[#FFC857] dark:border-[#FFC857];
+  }
+}
+
+/* Transitions */
+.transition-300 {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+/* Animations */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-in-out;
+}
