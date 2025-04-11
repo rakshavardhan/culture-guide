@@ -1,4 +1,5 @@
-import { MapPin, Navigation, Star, ExternalLink } from "lucide-react";
+import { MapPin, Navigation, Star, ExternalLink, Orbit } from "lucide-react";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -13,16 +14,23 @@ type AttractionProps = {
     category: string;
     address: string;
     url?: string;
+    hasAR?: boolean;
   };
 };
 
 export default function AttractionCard({ attraction }: AttractionProps) {
+  const [, navigate] = useLocation();
+  
   const formatDistance = (distance: number) => {
     if (distance < 1) {
       return `${(distance * 1000).toFixed(0)}m`;
     }
     return `${distance.toFixed(1)}km`;
   };
+  
+  // Some attractions with historical/cultural significance will have AR features
+  // In a real app, this would be determined by the backend
+  const hasARExperience = attraction.hasAR || ['Heritage', 'Spiritual', 'Museum'].includes(attraction.category);
 
   return (
     <div className="bg-white dark:bg-navy rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-300 transform hover:-translate-y-1">
@@ -32,10 +40,17 @@ export default function AttractionCard({ attraction }: AttractionProps) {
           alt={attraction.name} 
           className="w-full h-full object-cover"
         />
-        <div className="absolute top-2 right-2">
+        <div className="absolute top-2 right-2 flex flex-col space-y-2">
           <Badge className="bg-olive dark:bg-gold text-white dark:text-navy">
             {attraction.category}
           </Badge>
+          
+          {hasARExperience && (
+            <Badge className="bg-black/70 text-white border border-gold flex items-center gap-1">
+              <Orbit className="h-3 w-3" />
+              AR Available
+            </Badge>
+          )}
         </div>
       </div>
       <div className="p-5">
@@ -63,6 +78,18 @@ export default function AttractionCard({ attraction }: AttractionProps) {
           </span>
           
           <div className="flex space-x-2">
+            {hasARExperience && (
+              <Button 
+                variant="default" 
+                size="sm" 
+                className="bg-olive dark:bg-gold text-white dark:text-navy flex items-center"
+                onClick={() => navigate(`/ar/${attraction.id}`)}
+              >
+                <Orbit className="h-4 w-4 mr-1" />
+                View in AR
+              </Button>
+            )}
+            
             <Button 
               variant="outline" 
               size="sm" 

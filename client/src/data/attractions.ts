@@ -8,6 +8,7 @@ export type Attraction = {
   category: string;
   address: string;
   url?: string;
+  hasAR?: boolean;
   coordinates: {
     latitude: number;
     longitude: number;
@@ -26,6 +27,7 @@ const attractions: Attraction[] = [
     category: "Heritage",
     address: "15 Temple Road, Heritage District",
     url: "https://example.com/temple",
+    hasAR: true,
     coordinates: {
       latitude: 40.7128,
       longitude: -74.0060

@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { useGeolocation } from "@/hooks/use-geolocation";
 import { MapPin, RefreshCw, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import AttractionCard from "@/components/nearby/attraction-card";
+import ARSitesList from "@/components/ar/ar-sites-list";
 import { getNearbyAttractions } from "@/data/attractions";
 
 type Attraction = {
@@ -147,6 +149,15 @@ export default function Nearby() {
             ></iframe>
           </div>
         )}
+        
+        {/* AR Sites Section */}
+        {position && (
+          <div className="max-w-6xl mx-auto mb-16">
+            <ARSitesList className="bg-white dark:bg-navy p-6 rounded-xl shadow-md" />
+          </div>
+        )}
+        
+        <Separator className="max-w-6xl mx-auto my-12" />
         
         {/* Attractions List */}
         {position && (
