@@ -229,7 +229,7 @@ export default function BookingForm() {
                   const addon = addOns.find(a => a.id === addonId);
                   return addon ? (
                     <li key={addon.id} className="text-sm">
-                      {addon.label} (${addon.price})
+                      {addon.label} (₹{addon.price})
                     </li>
                   ) : null;
                 })}
@@ -240,7 +240,7 @@ export default function BookingForm() {
           <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
             <div className="flex justify-between font-bold">
               <span>Total Cost</span>
-              <span>${total}</span>
+              <span>₹{total}</span>
             </div>
           </div>
         </div>
@@ -658,7 +658,7 @@ export default function BookingForm() {
                             return addon ? (
                               <li key={addon.id} className="flex justify-between">
                                 <span>{addon.label}</span>
-                                <span>${addon.price}</span>
+                                <span>₹{addon.price}</span>
                               </li>
                             ) : null;
                           })}
