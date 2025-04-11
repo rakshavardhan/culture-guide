@@ -1,0 +1,92 @@
+Create a full-featured, responsive web application named “Cultura Guide”, which serves as a multilingual, AI-powered tourism assistant. This app should help users explore destinations, plan and customize trips, interact with an AI cultural guide, and book travel experiences. The project should be built using React and Tailwind CSS, and it must include all the necessary pages, components, and styling similar to real-world professional tourism websites like MakeMyTrip or TripAdvisor.
+
+The design should be clean, modern, mobile-first, and accessible. Implement full routing using React Router DOM. Use a component-based architecture with reusable UI elements and mock API placeholders for future AI integration (like GPT and translation services). Ensure every page is responsive and includes smooth transitions and animations where appropriate.
+
+The app must include all of the following pages and functionality:
+
+Home Page (/)
+Design a welcoming landing page with a fullscreen image carousel featuring iconic travel destinations. Overlay the tagline “Where culture meets technology” in an animated style. Include a call-to-action button (“Start Your Tour”) that links to the Trip Planner. Below, add featured destination cards with hover animations, a “How It Works” section, a testimonial carousel, and a footer with navigation links and social icons. Animate sections as users scroll.
+
+Explore Destinations Page (/explore)
+This page displays a grid of destination cards, each showing an image, name, brief description, and cultural tags like “heritage”, “spiritual”, or “food”. Implement a search bar with fuzzy matching and filters for region and destination type. Include hover effects and responsive card layouts.
+
+Trip Planner Page (/planner)
+Include a multi-step form that asks the user to select:
+
+Preferred destination(s)
+
+Duration of travel
+
+Travel style (solo, family, luxury, budget)
+
+Estimated budget
+After submission, call a placeholder function generateItinerary() and display the resulting AI-generated itinerary in a timeline or day-wise format. Allow users to customize the plan with add-ons like food tours or guided visits.
+
+AI Cultural Tour Guide Page (/guide)
+Add a mic button that captures voice input using the Web Speech API. Translate non-English queries to English using a placeholder function translateToEnglish(). Use another placeholder function getCulturalInfo() to simulate a GPT-based cultural response. Display the result in a chat bubble-style interface and use text-to-speech (via Web Speech Synthesis or gTTS) to speak the response aloud. Add loading animations and smooth interactions.
+
+Nearby Attractions Page (/nearby)
+Use the browser’s Geolocation API to fetch the user’s location. Display a list of nearby cultural sites using mock data. Show them on a responsive map (Google Maps iframe or Leaflet.js). Each result should be shown in a styled card with an image, title, and brief cultural description.
+
+Booking Page (/booking)
+Build a clean, multi-step booking form where users can:
+
+Choose destination
+
+Pick travel dates
+
+Enter group size
+
+Select add-ons (e.g., local guide, cultural show, accommodation)
+After form submission, show a confirmation summary of the trip with trip cost breakdown and a thank-you message.
+
+User Account Page (/account)
+Display mock user details (name, email, language preference) and allow them to update information. Include a section for saved trips and booking history (mock data only). This page should resemble a personal dashboard.
+
+About Page (/about)
+Provide a description of the mission and purpose of Cultura Guide. Add a section for the team (placeholders are fine), and explain how the app helps bridge culture and technology.
+
+Contact Page (/contact)
+Create a contact form with fields for name, email, and message. Validate the form fields and show a success alert on submission. Include a Google Maps iframe showing the headquarters or central office.
+
+Design Specifications:
+
+Use Tailwind CSS for styling. Make all layouts responsive across desktop, tablet, and mobile devices.
+
+Add a dark mode toggle, and include accessibility features such as keyboard navigation and font size controls.
+
+Use the Playfair Display font for headings and Poppins or Inter for body text.
+
+The color palette should be:
+
+Light mode: ivory, olive green, sky blue, terracotta
+
+Dark mode: deep navy, golden yellow, cream
+
+Use subtle animations (scroll reveal, button hover effects, card pop-ups) using Tailwind classes or Framer Motion.
+
+Project Structure:
+
+Organize the code into these folders:
+
+/pages for each route (Home, Explore, Planner, etc.)
+
+/components for reusable UI elements like Navbar, Footer, Card, VoiceInput, TripForm
+
+/utils for helper functions like translateToEnglish(), getCulturalInfo(), and generateItinerary()
+
+/assets for storing image files or icons
+
+Use React Router to link all pages together with a Navbar component that appears on every page. Add a sticky header with shadow on scroll and a consistent footer layout.
+
+Tech Notes:
+
+Use useState, useEffect, and useNavigate hooks where needed.
+
+Add clear TODO comments wherever external APIs (like OpenAI GPT, Google Translate, or gTTS) would later be plugged in.
+
+Use mock data to simulate saved trips, AI responses, and user profiles.
+
+Ensure the UI feels like a live product with responsive design and seamless page transitions.
+
+generate a complete, fully responsive, production-style tourism website with all pages, components, visuals, and placeholders for AI and booking systems. It will look and behave like a modern travel booking platform, ready for real-world use.
