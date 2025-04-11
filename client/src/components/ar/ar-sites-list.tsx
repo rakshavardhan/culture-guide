@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useNavigate, useLocation } from 'wouter';
-import { Cube, MapPin, Star } from 'lucide-react';
+import { useLocation } from 'wouter';
+import { Orbit as Cube, MapPin, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 // Define the type for historical/cultural sites with AR features
