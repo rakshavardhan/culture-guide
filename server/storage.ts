@@ -14,6 +14,13 @@ import {
 } from "@shared/schema";
 import { db } from './db';
 import { eq } from 'drizzle-orm';
+import session from "express-session";
+import createMemoryStore from "memorystore";
+import connectPg from "connect-pg-simple";
+import { pool } from "./db";
+
+const MemoryStore = createMemoryStore(session);
+const PostgresSessionStore = connectPg(session);
 
 // Interface for all storage operations
 export interface IStorage {
@@ -34,10 +41,22 @@ export interface IStorage {
   
   // Contact message operations
   createContactMessage(message: InsertContactMessage): Promise<ContactMessage>;
+  
+  // Session store
+  sessionStore: session.Store;
 }
 
 // Database storage implementation
 export class DatabaseStorage implements IStorage {
+  sessionStore: session.Store;
+  
+  constructor() {
+    this.sessionStore = new PostgresSessionStore({ 
+      pool, 
+      createTableIfMissing: true 
+    });
+  }
+  
   // User methods
   async getUser(id: number): Promise<User | undefined> {
     const [user] = await db.select().from(users).where(eq(users.id, id));
@@ -121,6 +140,7 @@ export class MemStorage implements IStorage {
   private currentTripId: number;
   private currentBookingId: number;
   private currentMessageId: number;
+  sessionStore: session.Store;
 
   constructor() {
     this.users = new Map();
@@ -131,6 +151,10 @@ export class MemStorage implements IStorage {
     this.currentTripId = 1;
     this.currentBookingId = 1;
     this.currentMessageId = 1;
+    
+    this.sessionStore = new MemoryStore({
+      checkPeriod: 86400000 // 24 hours
+    });
     
     // Add a default user for testing
     this.createUser({
