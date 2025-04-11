@@ -501,7 +501,7 @@ export default function TripForm({ onItineraryGenerated }: TripFormProps) {
                     }`}></span>
                     <div>
                       <span className="font-medium block">Economy</span>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">$100-150 per day</span>
+                      <span className="text-sm text-gray-500 dark:text-gray-400">₹8,000-12,000 per day</span>
                     </div>
                   </div>
                 </div>
@@ -527,7 +527,7 @@ export default function TripForm({ onItineraryGenerated }: TripFormProps) {
                     }`}></span>
                     <div>
                       <span className="font-medium block">Moderate</span>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">$150-300 per day</span>
+                      <span className="text-sm text-gray-500 dark:text-gray-400">₹12,000-24,000 per day</span>
                     </div>
                   </div>
                 </div>
@@ -553,7 +553,7 @@ export default function TripForm({ onItineraryGenerated }: TripFormProps) {
                     }`}></span>
                     <div>
                       <span className="font-medium block">Luxury</span>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">$300+ per day</span>
+                      <span className="text-sm text-gray-500 dark:text-gray-400">₹24,000+ per day</span>
                     </div>
                   </div>
                 </div>
