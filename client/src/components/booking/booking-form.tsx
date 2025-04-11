@@ -83,7 +83,7 @@ export default function BookingForm() {
   const [bookingComplete, setBookingComplete] = useState(false);
   const [bookingDetails, setBookingDetails] = useState<BookingFormValues | null>(null);
   const { toast } = useToast();
-  
+
   const form = useForm<BookingFormValues>({
     resolver: zodResolver(bookingFormSchema),
     defaultValues: {
@@ -101,7 +101,7 @@ export default function BookingForm() {
     if (currentStep === 1) {
       // Validate just the first page fields
       form.trigger(["destination", "startDate", "endDate", "groupSize"]);
-      
+
       if (
         !form.formState.errors.destination &&
         !form.formState.errors.startDate &&
@@ -122,15 +122,15 @@ export default function BookingForm() {
   const calculateTotal = (formData: BookingFormValues) => {
     // Base price per person per day
     const basePrice = 100;
-    
+
     // Calculate number of days
     const startDate = new Date(formData.startDate);
     const endDate = new Date(formData.endDate);
     const days = Math.max(1, Math.round((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)));
-    
+
     // Calculate base total
     let total = basePrice * days * formData.groupSize;
-    
+
     // Add cost of add-ons
     formData.addOns.forEach(addonId => {
       const addon = addOns.find(a => a.id === addonId);
@@ -138,31 +138,31 @@ export default function BookingForm() {
         total += addon.price;
       }
     });
-    
+
     return total;
   };
 
   const onSubmit = async (data: BookingFormValues) => {
     try {
       setIsSubmitting(true);
-      
+
       // Calculate total cost
       const totalCost = calculateTotal(data);
-      
+
       // Format data for API
       const bookingData = {
         ...data,
         totalCost,
         status: "pending",
       };
-      
+
       // Submit booking to API
       await apiRequest("POST", "/api/bookings", bookingData);
-      
+
       setBookingDetails(data);
       setBookingComplete(true);
       setIsSubmitting(false);
-      
+
       toast({
         title: "Booking Successful!",
         description: "Your cultural journey has been booked.",
@@ -185,21 +185,21 @@ export default function BookingForm() {
       (new Date(bookingDetails.endDate).getTime() - new Date(bookingDetails.startDate).getTime()) / 
       (1000 * 60 * 60 * 24)
     );
-    
+
     return (
       <div className="max-w-3xl mx-auto bg-white dark:bg-navy rounded-xl shadow-lg p-8 text-center">
         <div className="w-20 h-20 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-6">
           <CheckCircle className="h-10 w-10 text-green-600 dark:text-green-400" />
         </div>
-        
+
         <h2 className="text-2xl font-playfair font-bold mb-4">Thank You for Your Booking!</h2>
         <p className="text-gray-600 dark:text-gray-300 mb-8">
           Your {days}-day journey to {destinations.find(d => d.id === bookingDetails.destination)?.name} has been confirmed.
         </p>
-        
+
         <div className="mb-8 bg-gray-50 dark:bg-navy-light p-6 rounded-lg text-left">
           <h3 className="text-lg font-bold mb-4">Booking Summary</h3>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">Destination</p>
@@ -220,7 +220,7 @@ export default function BookingForm() {
               <p className="font-medium">{bookingDetails.email}</p>
             </div>
           </div>
-          
+
           {bookingDetails.addOns.length > 0 && (
             <div className="mb-4">
               <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">Add-ons</p>
@@ -236,7 +236,7 @@ export default function BookingForm() {
               </ul>
             </div>
           )}
-          
+
           <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
             <div className="flex justify-between font-bold">
               <span>Total Cost</span>
@@ -244,12 +244,12 @@ export default function BookingForm() {
             </div>
           </div>
         </div>
-        
+
         <p className="text-gray-600 dark:text-gray-300 mb-6">
           A confirmation email has been sent to {bookingDetails.email}. <br />
           We'll be in touch with more details soon!
         </p>
-        
+
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Button 
             variant="outline" 
@@ -284,22 +284,22 @@ export default function BookingForm() {
             }`}>1</div>
             <span className="text-sm mt-2">Trip Details</span>
           </div>
-          
+
           <div className="flex-grow mx-4 h-1 bg-gray-200 dark:bg-gray-700 relative">
             <div className="absolute top-0 left-0 h-full bg-olive dark:bg-gold" style={{ width: currentStep > 1 ? "100%" : "0%" }}></div>
           </div>
-          
+
           <div className="flex flex-col items-center">
             <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
               currentStep >= 2 ? "bg-olive dark:bg-gold text-white dark:text-navy" : "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
             }`}>2</div>
             <span className="text-sm mt-2">Add-ons</span>
           </div>
-          
+
           <div className="flex-grow mx-4 h-1 bg-gray-200 dark:bg-gray-700 relative">
             <div className="absolute top-0 left-0 h-full bg-olive dark:bg-gold" style={{ width: currentStep > 2 ? "100%" : "0%" }}></div>
           </div>
-          
+
           <div className="flex flex-col items-center">
             <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
               currentStep >= 3 ? "bg-olive dark:bg-gold text-white dark:text-navy" : "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
@@ -308,14 +308,14 @@ export default function BookingForm() {
           </div>
         </div>
       </div>
-      
+
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="p-6">
           {/* Step 1: Trip Details */}
           {currentStep === 1 && (
             <div className="space-y-6">
               <h2 className="text-xl font-playfair font-bold mb-6">Choose Your Destination & Dates</h2>
-              
+
               <FormField
                 control={form.control}
                 name="destination"
@@ -343,7 +343,7 @@ export default function BookingForm() {
                   </FormItem>
                 )}
               />
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormField
                   control={form.control}
@@ -381,7 +381,7 @@ export default function BookingForm() {
                     </FormItem>
                   )}
                 />
-                
+
                 <FormField
                   control={form.control}
                   name="endDate"
@@ -422,7 +422,7 @@ export default function BookingForm() {
                   )}
                 />
               </div>
-              
+
               <FormField
                 control={form.control}
                 name="groupSize"
@@ -445,7 +445,7 @@ export default function BookingForm() {
                   </FormItem>
                 )}
               />
-              
+
               <div className="flex justify-end">
                 <Button 
                   type="button" 
@@ -457,12 +457,12 @@ export default function BookingForm() {
               </div>
             </div>
           )}
-          
+
           {/* Step 2: Add-ons */}
           {currentStep === 2 && (
             <div className="space-y-6">
               <h2 className="text-xl font-playfair font-bold mb-6">Enhance Your Experience</h2>
-              
+
               <FormField
                 control={form.control}
                 name="addOns"
@@ -516,7 +516,7 @@ export default function BookingForm() {
                   </FormItem>
                 )}
               />
-              
+
               <div className="flex justify-between">
                 <Button 
                   type="button" 
@@ -535,12 +535,12 @@ export default function BookingForm() {
               </div>
             </div>
           )}
-          
+
           {/* Step 3: Contact & Payment */}
           {currentStep === 3 && (
             <div className="space-y-6">
               <h2 className="text-xl font-playfair font-bold mb-6">Contact & Payment Information</h2>
-              
+
               <div className="grid grid-cols-1 gap-6">
                 <FormField
                   control={form.control}
@@ -555,7 +555,7 @@ export default function BookingForm() {
                     </FormItem>
                   )}
                 />
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <FormField
                     control={form.control}
@@ -570,7 +570,7 @@ export default function BookingForm() {
                       </FormItem>
                     )}
                   />
-                  
+
                   <FormField
                     control={form.control}
                     name="phoneNumber"
@@ -585,7 +585,7 @@ export default function BookingForm() {
                     )}
                   />
                 </div>
-                
+
                 <FormField
                   control={form.control}
                   name="specialRequests"
@@ -599,14 +599,14 @@ export default function BookingForm() {
                     </FormItem>
                   )}
                 />
-                
+
                 {/* Simulated payment form */}
                 <div className="border rounded-md p-4 space-y-4">
                   <h3 className="font-medium flex items-center">
                     <CreditCard className="mr-2 h-4 w-4" />
                     Payment Information
                   </h3>
-                  
+
                   <div className="space-y-2">
                     <Input placeholder="Card Number" className="border-gray-300 dark:border-gray-600" />
                     <div className="grid grid-cols-2 gap-4">
@@ -614,15 +614,15 @@ export default function BookingForm() {
                       <Input placeholder="CVC" className="border-gray-300 dark:border-gray-600" />
                     </div>
                   </div>
-                  
+
                   <div className="text-sm text-gray-500 dark:text-gray-400">
                     <p>This is a demonstration. No actual payment will be processed.</p>
                   </div>
                 </div>
-                
+
                 <div className="bg-gray-50 dark:bg-navy-light p-4 rounded-md">
                   <h3 className="font-medium mb-3">Trip Summary</h3>
-                  
+
                   <div className="space-y-2 text-sm mb-4">
                     <div className="flex justify-between">
                       <span>Destination:</span>
@@ -633,7 +633,7 @@ export default function BookingForm() {
                         }
                       </span>
                     </div>
-                    
+
                     <div className="flex justify-between">
                       <span>Dates:</span>
                       <span>
@@ -643,12 +643,12 @@ export default function BookingForm() {
                         }
                       </span>
                     </div>
-                    
+
                     <div className="flex justify-between">
                       <span>Group Size:</span>
                       <span>{form.watch("groupSize")} people</span>
                     </div>
-                    
+
                     {form.watch("addOns").length > 0 && (
                       <div>
                         <span className="block mb-1">Add-ons:</span>
@@ -666,7 +666,7 @@ export default function BookingForm() {
                       </div>
                     )}
                   </div>
-                  
+
                   <div className="border-t border-gray-200 dark:border-gray-700 pt-3 mt-3">
                     <div className="flex justify-between font-medium">
                       <span>Estimated Total:</span>
@@ -675,7 +675,7 @@ export default function BookingForm() {
                   </div>
                 </div>
               </div>
-              
+
               <div className="flex justify-between">
                 <Button 
                   type="button" 

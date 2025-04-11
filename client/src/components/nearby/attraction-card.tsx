@@ -20,14 +20,14 @@ type AttractionProps = {
 
 export default function AttractionCard({ attraction }: AttractionProps) {
   const [, navigate] = useLocation();
-  
+
   const formatDistance = (distance: number) => {
     if (distance < 1) {
       return `${(distance * 1000).toFixed(0)}m`;
     }
     return `${distance.toFixed(1)}km`;
   };
-  
+
   // Some attractions with historical/cultural significance will have AR features
   // In a real app, this would be determined by the backend
   const hasARExperience = attraction.hasAR || ['Heritage', 'Spiritual', 'Museum'].includes(attraction.category);
@@ -44,7 +44,7 @@ export default function AttractionCard({ attraction }: AttractionProps) {
           <Badge className="bg-olive dark:bg-gold text-white dark:text-navy">
             {attraction.category}
           </Badge>
-          
+
           {hasARExperience && (
             <Badge className="bg-black/70 text-white border border-gold flex items-center gap-1">
               <Orbit className="h-3 w-3" />
@@ -61,22 +61,22 @@ export default function AttractionCard({ attraction }: AttractionProps) {
             <span className="ml-1 text-sm font-semibold">{attraction.rating}</span>
           </div>
         </div>
-        
+
         <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
           {attraction.description}
         </p>
-        
+
         <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
           <MapPin className="h-4 w-4 mr-1" />
           <span>{attraction.address}</span>
         </div>
-        
+
         <div className="flex justify-between items-center">
           <span className="flex items-center text-olive dark:text-gold font-medium">
             <Navigation className="h-4 w-4 mr-1" />
             {formatDistance(attraction.distance)}
           </span>
-          
+
           <div className="flex space-x-2">
             {hasARExperience && (
               <Button 
@@ -89,7 +89,7 @@ export default function AttractionCard({ attraction }: AttractionProps) {
                 View in AR
               </Button>
             )}
-            
+
             <Button 
               variant="outline" 
               size="sm" 
@@ -101,7 +101,7 @@ export default function AttractionCard({ attraction }: AttractionProps) {
             >
               Directions
             </Button>
-            
+
             {attraction.url && (
               <Button 
                 variant="outline" 

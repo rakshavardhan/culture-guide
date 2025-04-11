@@ -68,7 +68,7 @@ export default function Home() {
           </p>
           <Link href="/planner">
             <Button 
-              className="bg-white text-terracotta dark:bg-navy dark:text-gold font-bold px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-300 transform hover:-translate-y-1 animate-on-scroll opacity-0"
+              className="bg-white text-terracotta dark:bg-navy dark:text-gold font-bold px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-300 transform hover:-translate-y-1 animate-on-scroll opacity-0 flex items-center justify-center"
             >
               Start Planning Now
             </Button>

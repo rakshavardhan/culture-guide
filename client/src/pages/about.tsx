@@ -12,7 +12,7 @@ export default function About() {
           </p>
         </div>
       </div>
-      
+
       {/* Mission Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-4xl">
@@ -36,12 +36,12 @@ export default function About() {
           </div>
         </div>
       </section>
-      
+
       {/* Values Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-100 dark:bg-navy-light">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-3xl font-playfair font-bold mb-12 text-center">Our Values</h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-white dark:bg-navy p-8 rounded-xl shadow-md text-center">
               <div className="w-16 h-16 bg-skyblue/20 dark:bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -52,7 +52,7 @@ export default function About() {
                 We promote respectful engagement with cultures and traditions around the world.
               </p>
             </div>
-            
+
             <div className="bg-white dark:bg-navy p-8 rounded-xl shadow-md text-center">
               <div className="w-16 h-16 bg-skyblue/20 dark:bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Globe className="h-8 w-8 text-olive dark:text-gold" />
@@ -62,7 +62,7 @@ export default function About() {
                 We prioritize genuine cultural immersion over superficial tourist attractions.
               </p>
             </div>
-            
+
             <div className="bg-white dark:bg-navy p-8 rounded-xl shadow-md text-center">
               <div className="w-16 h-16 bg-skyblue/20 dark:bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Zap className="h-8 w-8 text-olive dark:text-gold" />
@@ -72,7 +72,7 @@ export default function About() {
                 We harness technology to enhance human connection and cultural understanding.
               </p>
             </div>
-            
+
             <div className="bg-white dark:bg-navy p-8 rounded-xl shadow-md text-center">
               <div className="w-16 h-16 bg-skyblue/20 dark:bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Users className="h-8 w-8 text-olive dark:text-gold" />
@@ -85,12 +85,12 @@ export default function About() {
           </div>
         </div>
       </section>
-      
+
       {/* Team Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-3xl font-playfair font-bold mb-12 text-center">Our Team</h2>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-white dark:bg-navy p-6 rounded-xl shadow-md">
               <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-6">
@@ -106,7 +106,7 @@ export default function About() {
                 Cultural anthropologist and technology entrepreneur with a passion for sustainable tourism.
               </p>
             </div>
-            
+
             <div className="bg-white dark:bg-navy p-6 rounded-xl shadow-md">
               <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-6">
                 <img 
@@ -121,7 +121,7 @@ export default function About() {
                 AI specialist with expertise in natural language processing and cross-cultural communication.
               </p>
             </div>
-            
+
             <div className="bg-white dark:bg-navy p-6 rounded-xl shadow-md">
               <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-6">
                 <img 
@@ -139,7 +139,7 @@ export default function About() {
           </div>
         </div>
       </section>
-      
+
       {/* How It Works */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-terracotta dark:bg-gold text-white dark:text-navy">
         <div className="container mx-auto max-w-4xl text-center">
@@ -147,20 +147,20 @@ export default function About() {
           <p className="text-xl mb-10">
             Our AI-powered platform bridges the gap between technology and cultural exploration.
           </p>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             <div>
               <div className="w-16 h-16 rounded-full bg-white dark:bg-navy flex items-center justify-center text-terracotta dark:text-gold text-2xl font-bold mx-auto mb-4">1</div>
               <h3 className="text-xl font-playfair font-bold mb-2">Explore</h3>
               <p>Discover destinations through our cultural lens and find experiences that resonate with your interests.</p>
             </div>
-            
+
             <div>
               <div className="w-16 h-16 rounded-full bg-white dark:bg-navy flex items-center justify-center text-terracotta dark:text-gold text-2xl font-bold mx-auto mb-4">2</div>
               <h3 className="text-xl font-playfair font-bold mb-2">Plan</h3>
               <p>Create personalized itineraries with our AI assistant that understands cultural nuances and preferences.</p>
             </div>
-            
+
             <div>
               <div className="w-16 h-16 rounded-full bg-white dark:bg-navy flex items-center justify-center text-terracotta dark:text-gold text-2xl font-bold mx-auto mb-4">3</div>
               <h3 className="text-xl font-playfair font-bold mb-2">Experience</h3>
@@ -169,12 +169,12 @@ export default function About() {
           </div>
         </div>
       </section>
-      
+
       {/* Partners Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-3xl font-playfair font-bold mb-12 text-center">Our Partners</h2>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="flex items-center justify-center h-24 grayscale hover:grayscale-0 transition-all duration-300">
               <img 
