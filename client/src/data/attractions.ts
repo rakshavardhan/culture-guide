@@ -42,6 +42,7 @@ const attractions: Attraction[] = [
     rating: 4.6,
     category: "Museum",
     address: "42 Museum Avenue, Downtown",
+    hasAR: true,
     coordinates: {
       latitude: 40.7138,
       longitude: -74.0059
@@ -129,6 +130,7 @@ const attractions: Attraction[] = [
     rating: 4.7,
     category: "Heritage",
     address: "1 Central Plaza, Heart of City",
+    hasAR: true,
     coordinates: {
       latitude: 40.7129,
       longitude: -74.0061

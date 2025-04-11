@@ -44,9 +44,13 @@ export default function ARInfoOverlay({ site, onClose }: ARInfoOverlayProps) {
             <TabsContent value="overview" className="p-4 m-0">
               <div className="mb-4">
                 <img 
-                  src={`https://source.unsplash.com/800x600/?${site.name.replace(' ', ',')}`} 
+                  src={`https://source.unsplash.com/800x600/?historical,${encodeURIComponent(site.name)}`} 
                   alt={site.name} 
                   className="w-full h-40 object-cover rounded-lg" 
+                  onError={(e) => {
+                    // Fallback image if Unsplash fails
+                    e.currentTarget.src = "https://images.unsplash.com/photo-1565967511849-76a60a516170?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60";
+                  }}
                 />
               </div>
               <p className="text-gray-700 dark:text-gray-300 mb-4">

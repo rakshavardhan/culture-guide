@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "wouter";
+import { useLocation, useRoute } from "wouter";
 import { ArrowLeft, Info, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ARScene from "@/components/ar/ar-scene";
 import ARInfoOverlay from "@/components/ar/ar-info-overlay";
 import { delay } from "@/lib/utils";
+import attractions from "@/data/attractions";
 
 export default function ARView() {
   const [, navigate] = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const [showInfo, setShowInfo] = useState(false);
+  const [, params] = useRoute('/ar/:siteId');
   const [currentSite, setCurrentSite] = useState<{
     id: string;
     name: string;
@@ -19,29 +21,66 @@ export default function ARView() {
     year: string;
   } | null>(null);
 
-  // In a real app, we would get the site ID from URL params and fetch data from API
+  // Get site ID from URL params and load corresponding data
   useEffect(() => {
     const loadSiteData = async () => {
       setIsLoading(true);
       
-      // Simulate API call to get site data
-      await delay(1000);
+      // Get the site ID from the URL parameter or default to "taj-mahal"
+      const siteId = params?.siteId || "taj-mahal";
       
-      // Mock site data - in a real app, this would come from an API
-      setCurrentSite({
-        id: "taj-mahal",
-        name: "Taj Mahal",
-        description: "One of the seven wonders of the world, a symbol of eternal love.",
-        culturalInfo: "The Taj Mahal represents the finest and most sophisticated example of Mughal architecture. Its distinctive features include its perfect proportions, distinct silhouette, stunning gardens, and intricate marble inlay work.",
-        historicalDetails: "Built by Emperor Shah Jahan in memory of his beloved wife Mumtaz Mahal, who died giving birth to their 14th child in 1631. The construction began in 1632 and was completed in 1643.",
-        year: "1643"
-      });
+      // Simulate API call to get site data
+      await delay(800);
+      
+      // Special handling for predefined AR sites
+      if (siteId === "taj-mahal" || siteId === "machu-picchu" || siteId === "angkor-wat") {
+        // These are from the AR sites list
+        const siteName = siteId === "taj-mahal" ? "Taj Mahal" : 
+                         siteId === "machu-picchu" ? "Machu Picchu" : "Angkor Wat";
+        
+        const siteYear = siteId === "taj-mahal" ? "1643" : 
+                         siteId === "machu-picchu" ? "1450" : "1150";
+        
+        setCurrentSite({
+          id: siteId,
+          name: siteName,
+          description: `A famous ${siteId === "taj-mahal" ? "mausoleum" : "historical site"} and UNESCO World Heritage Site.`,
+          culturalInfo: `This site represents the pinnacle of ${siteId === "taj-mahal" ? "Mughal" : siteId === "machu-picchu" ? "Incan" : "Khmer"} architecture and cultural achievement.`,
+          historicalDetails: `This historical site dates back to the ${siteId === "taj-mahal" ? "17th" : siteId === "machu-picchu" ? "15th" : "12th"} century and has great significance to the local culture and history.`,
+          year: siteYear
+        });
+      } else {
+        // Look for the attraction in our data
+        const attraction = attractions.find(a => a.id === siteId);
+        
+        if (attraction) {
+          // Create site info from attraction data
+          setCurrentSite({
+            id: attraction.id,
+            name: attraction.name,
+            description: attraction.description,
+            culturalInfo: `${attraction.name} is a significant cultural site in the category of ${attraction.category}.`,
+            historicalDetails: `Located at ${attraction.address}, this site offers visitors insight into local history and traditions.`,
+            year: attraction.category === "Heritage" ? "~1200" : "~1800"
+          });
+        } else {
+          // Fallback data if we can't find a match
+          setCurrentSite({
+            id: siteId,
+            name: "Cultural Heritage Site",
+            description: "An important historical and cultural landmark.",
+            culturalInfo: "This site has cultural significance to the local community and represents important historical events and traditions.",
+            historicalDetails: "The exact origins of this site are not well documented, but it has been an important part of local culture for generations.",
+            year: "Unknown"
+          });
+        }
+      }
       
       setIsLoading(false);
     };
     
     loadSiteData();
-  }, []);
+  }, [params]);
 
   const handleBack = () => {
     navigate("/nearby");
