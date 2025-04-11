@@ -6,6 +6,8 @@ import { insertTripSchema, insertBookingSchema, insertContactMessageSchema } fro
 import { setupAuth } from "./auth";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Setup authentication
+  setupAuth(app);
   // API routes
   app.get("/api/destinations", (_req, res) => {
     res.json({
