@@ -18,32 +18,111 @@ export default function ARScene({ siteId }: ARSceneProps) {
   const [bouncePosition, setBouncePosition] = useState(0);
   const [bounceDirection, setBounceDirection] = useState(1);
 
-  // This effect sets up the camera feed
+  // This effect sets up the camera feed or falls back to a static background
   useEffect(() => {
+    let isMounted = true;
+    // For now, always use fallback mode to ensure AR works everywhere
+    let needsFallback = true;
+    
+    // Set a simple message explaining the fallback mode
+    setCameraError('Using AR visualization mode. Tap to interact with the model.');
+    
+    // Attempt camera access only for future enhancement, but don't rely on it
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      setCameraError('Camera not supported on this device');
-      return;
+      console.warn('Camera not supported - using fallback mode');
+    } else if (!needsFallback) { // Only attempt camera if we're not always using fallback
+      // Request camera access with timeout
+      const cameraPromise = navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment' }
+      });
+      
+      // Timeout after 3 seconds to prevent hanging on permission dialog
+      const timeoutPromise = new Promise<MediaStream>((_, reject) => {
+        setTimeout(() => reject(new Error('Camera permission timeout')), 3000);
+      });
+      
+      Promise.race([cameraPromise, timeoutPromise])
+        .then(stream => {
+          if (!isMounted) return;
+          
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+            needsFallback = false;
+          }
+        })
+        .catch(err => {
+          if (!isMounted) return;
+          
+          console.error('Camera error:', err);
+          setCameraError(`Using AR visualization mode without camera. ${err.message}`);
+          needsFallback = true;
+        });
     }
-
-    // Request camera access
-    navigator.mediaDevices.getUserMedia({
-      video: { facingMode: 'environment' }
-    })
-    .then(stream => {
+    
+    // Handle fallback mode
+    if (needsFallback) {
+      // Create a gradient background instead of camera feed
       if (videoRef.current) {
-        videoRef.current.srcObject = stream;
+        videoRef.current.style.display = 'none';
       }
-    })
-    .catch(err => {
-      console.error('Camera error:', err);
-      setCameraError(`Camera error: ${err.message}`);
-    });
+      
+      // Instead of DOM manipulation, let's use React's built-in background options
+      if (videoRef.current) {
+        videoRef.current.style.display = 'none';
+      }
+      
+      // Add a basic CSS rule for the fallback animation directly in index.css
+      if (!document.querySelector('#ar-gradient-styles')) {
+        const style = document.createElement('style');
+        style.id = 'ar-gradient-styles';
+        style.textContent = `
+          @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+          .ar-gradient-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, #001f3f, #0074D9, #111111);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            z-index: 0;
+          }
+        `;
+        document.head.appendChild(style);
+      }
+      
+      // Create a div programmatically as a direct child in the React component
+      // This will be rendered when the component mounts
+      const container = document.querySelector('.ar-scene-container');
+      if (container && !container.querySelector('.ar-gradient-bg')) {
+        const backgroundDiv = document.createElement('div');
+        backgroundDiv.className = 'ar-gradient-bg';
+        container.insertBefore(backgroundDiv, container.firstChild);
+      }
+    }
 
     // Clean up function
     return () => {
+      isMounted = false;
+      
       if (videoRef.current && videoRef.current.srcObject) {
         const tracks = (videoRef.current.srcObject as MediaStream).getTracks();
         tracks.forEach(track => track.stop());
+      }
+      
+      // Remove style if we added it
+      try {
+        const styles = document.querySelectorAll('style');
+        styles.forEach(style => {
+          const content = style.textContent || '';
+          if (content.includes('gradientBG')) {
+            document.head.removeChild(style);
+          }
+        });
+      } catch (error) {
+        console.error('Error cleaning up styles:', error);
       }
     };
   }, []);
@@ -365,7 +444,7 @@ export default function ARScene({ siteId }: ARSceneProps) {
   };
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full ar-scene-container">
       {/* Camera video feed */}
       <video
         ref={videoRef}
@@ -384,15 +463,11 @@ export default function ARScene({ siteId }: ARSceneProps) {
         height={window.innerHeight}
       />
       
-      {/* Camera error message */}
+      {/* AR hint/info message */}
       {cameraError && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/80 p-4">
-          <div className="bg-white dark:bg-navy p-4 rounded-lg text-center max-w-xs">
-            <p className="text-red-600 font-medium mb-2">Camera Error</p>
-            <p className="text-gray-800 dark:text-gray-200 text-sm">{cameraError}</p>
-            <p className="text-gray-600 dark:text-gray-400 text-sm mt-2">
-              Please check camera permissions or try a different browser.
-            </p>
+        <div className="absolute top-5 left-0 right-0 flex justify-center">
+          <div className="bg-black/70 text-white px-4 py-2 rounded-lg text-center max-w-xs">
+            <p className="text-sm">{cameraError}</p>
           </div>
         </div>
       )}
