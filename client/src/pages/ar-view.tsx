@@ -142,9 +142,14 @@ export default function ARView() {
       </div>
       
       {/* Site name at bottom */}
-      <div className="absolute bottom-6 left-0 right-0 text-center pointer-events-none">
+      <div className="absolute bottom-6 left-0 right-0 text-center pointer-events-none space-y-2">
         <div className="inline-block bg-black/70 text-white px-6 py-2 rounded-full font-bold text-lg">
           {currentSite?.name || "Cultural Site"}
+        </div>
+        
+        {/* Interaction hint */}
+        <div className="block text-white text-sm animate-pulse">
+          Tap the screen to pause/resume animation
         </div>
       </div>
       
