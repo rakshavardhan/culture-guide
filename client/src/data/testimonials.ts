@@ -10,39 +10,39 @@ export type Testimonial = {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "Sarah L.",
+    name: "Priya Sharma",
     location: "Traveled to Kyoto, Japan",
-    image: "https://randomuser.me/api/portraits/women/42.jpg",
-    rating: 5,
-    text: "Cultura Guide transformed my trip to Japan. The AI guide taught me so much about the temples and traditions that I would have missed otherwise. It felt like having a local friend showing me around!"
+    image: "https://randomuser.me/api/portraits/women/68.jpg",
+    rating: 4.8,
+    text: "The AR features brought ancient temples to life! I learned so much about the history and culture that I would have missed otherwise."
   },
   {
     id: 2,
-    name: "Michael T.",
-    location: "Traveled to Barcelona, Spain",
-    image: "https://randomuser.me/api/portraits/men/32.jpg",
-    rating: 4.5,
-    text: "The trip planner saved me hours of research. It suggested places I never would have found on my own, and every recommendation was spot on. Can't imagine traveling without it now."
+    name: "Rahul Verma",
+    location: "Traveled to Venice, Italy",
+    image: "https://randomuser.me/api/portraits/men/92.jpg",
+    rating: 4.9,
+    text: "The personalized itinerary was perfect. Every restaurant recommendation was authentic and amazing. Made our honeymoon truly special."
   },
   {
     id: 3,
-    name: "Elena F.",
-    location: "Traveled to Istanbul, Turkey",
-    image: "https://randomuser.me/api/portraits/women/65.jpg",
-    rating: 5,
-    text: "As a solo female traveler, having the cultural context from the AI guide was invaluable. It helped me understand local customs and navigate interactions with confidence and respect."
+    name: "Anjali Gupta",
+    location: "Traveled to Petra, Jordan",
+    image: "https://randomuser.me/api/portraits/women/23.jpg",
+    rating: 5.0,
+    text: "Having a local guide through the AI chat was incredibly helpful. Got insider tips that made our adventure unforgettable."
   },
   {
     id: 4,
-    name: "James W.",
-    location: "Traveled to Marrakech, Morocco",
-    image: "https://randomuser.me/api/portraits/men/67.jpg",
-    rating: 4.8,
-    text: "The multilingual features were incredible - I could speak English, and locals could hear my questions in Arabic. The cultural insights about Moroccan etiquette prevented so many potential faux pas!"
+    name: "Vikram Malhotra",
+    location: "Traveled to Machu Picchu, Peru",
+    image: "https://randomuser.me/api/portraits/men/54.jpg",
+    rating: 4.7,
+    text: "The voice-guided tours were a game-changer. Could explore at our own pace while learning fascinating facts about the Incan civilization."
   },
   {
     id: 5,
-    name: "Akira Y.",
+    name: "Meera Iyer",
     location: "Traveled to Rome, Italy",
     image: "https://randomuser.me/api/portraits/women/79.jpg",
     rating: 5,
@@ -50,7 +50,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: 6,
-    name: "Carlos M.",
+    name: "Raj Kapoor",
     location: "Traveled to Cusco, Peru",
     image: "https://randomuser.me/api/portraits/men/45.jpg",
     rating: 4.7,

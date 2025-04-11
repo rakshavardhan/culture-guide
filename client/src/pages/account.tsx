@@ -18,8 +18,8 @@ import { LanguageSwitcher } from "@/components/layout/language-switcher";
 
 // Mock user data
 const userData = {
-  name: "Alex Thompson",
-  email: "alex.thompson@example.com",
+  name: "Arjun Patel",
+  email: "arjun.patel@example.com",
   profileImage: "https://randomuser.me/api/portraits/men/32.jpg",
   joinDate: new Date(2022, 5, 15),
   language: "en",
